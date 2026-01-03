@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { FeatureCard } from "./FeatureCard";
 import { BookOpen, Compass, Moon, Sun, Bed, Star } from "lucide-react";
 
@@ -8,13 +9,14 @@ const features = [
     description: "Explorez les beaux noms avec leurs invocations",
     icon: <Star className="w-6 h-6 text-primary" />,
     comingSoon: false,
+    link: "/names",
   },
   {
     arabicTitle: "الْقُرْآنُ الْكَرِيمُ",
     title: "Coran Quotidien",
     description: "Lisez et méditez sur le Saint Coran",
     icon: <BookOpen className="w-6 h-6 text-primary" />,
-    comingSoon: false,
+    comingSoon: true,
   },
   {
     arabicTitle: "أَذْكَارُ الصَّبَاحِ",
@@ -42,7 +44,7 @@ const features = [
     title: "Direction de la Qibla",
     description: "Trouvez la direction de la prière",
     icon: <Compass className="w-6 h-6 text-primary" />,
-    comingSoon: false,
+    comingSoon: true,
   },
 ];
 
@@ -55,11 +57,13 @@ export const FeaturesGrid = () => {
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {features.map((feature, index) => (
-          <FeatureCard
-            key={feature.title}
-            {...feature}
-            delay={500 + index * 100}
-          />
+          feature.link ? (
+            <Link key={feature.title} to={feature.link}>
+              <FeatureCard {...feature} delay={500 + index * 100} />
+            </Link>
+          ) : (
+            <FeatureCard key={feature.title} {...feature} delay={500 + index * 100} />
+          )
         ))}
       </div>
     </div>
